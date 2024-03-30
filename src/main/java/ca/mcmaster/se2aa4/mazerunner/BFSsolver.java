@@ -58,7 +58,7 @@ public class BFSsolver implements MazeSolver{
             }
         }
 
-        return null; // No path found
+        return null; 
     }
 
     private static class PathState {
