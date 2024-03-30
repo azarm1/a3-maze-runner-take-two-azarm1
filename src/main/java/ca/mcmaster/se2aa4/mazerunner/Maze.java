@@ -161,4 +161,8 @@ public class Maze {
 
         return pos.equals(endPos);
     }
+
+    public boolean isWithinBounds(Position pos) {
+        return pos.x() >= 0 && pos.x() < getSizeX() && pos.y() >= 0 && pos.y() < getSizeY();
+    }
 }

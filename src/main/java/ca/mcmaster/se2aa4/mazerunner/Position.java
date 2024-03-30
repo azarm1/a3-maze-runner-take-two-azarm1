@@ -39,4 +39,12 @@ public record Position(int x, int y) {
     public String toString() {
         return "Position(" + this.x + "," + this.y + ")";
     }
+
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
+    }
 }
