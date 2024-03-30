@@ -9,6 +9,7 @@ public class BFSsolver implements MazeSolver{
 
     @Override
     public Path solve(Maze maze) {
+        long startTime = System.currentTimeMillis();
         Queue<PathState> queue = new LinkedList<>();
         Set<Position> visited = new HashSet<>();
         Position start = maze.getStart();
@@ -23,6 +24,8 @@ public class BFSsolver implements MazeSolver{
             Direction currentDirection = current.direction;
 
             if (currentPosition.equals(maze.getEnd())) {
+                long endTime = System.currentTimeMillis();
+                System.out.println(endTime - startTime);
                 return currentPath;
             }
 

@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 public class Main {
 
     private static final Logger logger = LogManager.getLogger();
-//MAYA TSTING CHANGES
     public static void main(String[] args) {
         logger.info("** Starting Maze Runner");
         CommandLineParser parser = new DefaultParser();
@@ -16,7 +15,9 @@ public class Main {
         try {
             cmd = parser.parse(getParserOptions(), args);
             String filePath = cmd.getOptionValue('i');
+
             Maze maze = new Maze(filePath);
+
 
             if (cmd.getOptionValue("p") != null) {
                 logger.info("Validating path");
@@ -27,9 +28,29 @@ public class Main {
                     System.out.println("incorrect path");
                 }
             } else {
-                String method = cmd.getOptionValue("method", "righthand");
+                String method = cmd.getOptionValue("method", "BFS");
+                
+                long methodStart = System.currentTimeMillis();
                 Path path = solveMaze(method, maze);
+                long methodEnd = System.currentTimeMillis();
+
+                long methodTime = methodEnd - methodStart;
+
                 System.out.println(path.getFactorizedForm());
+
+                if (cmd.getOptionValue("baseline") != null) {
+                    // Compute the baseline solution path
+                    String baseline = cmd.getOptionValue("baseline");
+                    long baselineStart = System.currentTimeMillis();
+                    Path baselinePath = solveMaze(baseline, maze);
+                    long baselineEnd = System.currentTimeMillis();
+
+                    long baselineTime = baselineEnd - baselineStart;
+
+                    double speedup = (double) baselineTime/ methodTime;
+                    
+                    System.out.println("Speedup: " + speedup);
+                }
             }
         } catch (Exception e) {
             System.err.println("MazeSolver failed.  Reason: " + e.getMessage());
@@ -59,6 +80,10 @@ public class Main {
                 logger.debug("Tremaux algorithm chosen.");
                 solver = new TremauxSolver();
             }
+            case "BFS" -> {
+                logger.debug("BFS algorithm chosen.");
+                solver = new BFSsolver();
+            }
             default -> {
                 throw new Exception("Maze solving method '" + method + "' not supported.");
             }
@@ -82,6 +107,7 @@ public class Main {
 
         options.addOption(new Option("p", true, "Path to be verified in maze"));
         options.addOption(new Option("method", true, "Specify which path computation algorithm will be used"));
+        options.addOption(new Option("baseline", true, "Specify which method to use as baseline for speedup calculation"));
 
         return options;
     }

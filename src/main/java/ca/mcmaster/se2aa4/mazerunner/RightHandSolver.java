@@ -8,6 +8,7 @@ public class RightHandSolver implements MazeSolver {
 
     @Override
     public Path solve(Maze maze) {
+        long startTime = System.currentTimeMillis();
         Path path = new Path();
 
         Position currentPos = maze.getStart();
@@ -39,7 +40,8 @@ public class RightHandSolver implements MazeSolver {
             }
             logger.debug("Current Position: " + currentPos.toString() + "\n Current Path: " + path.getCanonicalForm());
         }
-
+        long endTime = System.currentTimeMillis();
+        System.out.println(endTime - startTime);
         return path;
     }
 }
