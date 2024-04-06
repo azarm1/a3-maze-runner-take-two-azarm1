@@ -165,4 +165,10 @@ public class Maze {
     public boolean isWithinBounds(Position pos) {
         return pos.x() >= 0 && pos.x() < getSizeX() && pos.y() >= 0 && pos.y() < getSizeY();
     }
+
+    public boolean isValidMove(Position from, Direction direction) {
+        Position newPosition = from.move(direction);
+        return isWithinBounds(newPosition) && !isWall(newPosition);
+}
+
 }
