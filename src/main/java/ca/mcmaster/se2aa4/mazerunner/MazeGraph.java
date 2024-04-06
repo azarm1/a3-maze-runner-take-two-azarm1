@@ -108,7 +108,7 @@ public class MazeGraph {
         }
     }    
     
-    private class Vertex{
+    public class Vertex{
         private Position position;
         private ArrayList<Edge> edges;
         private Direction direction;
@@ -135,13 +135,9 @@ public class MazeGraph {
             return edges;
         }
 
-
-
-
-
     }
 
-    private class Edge{
+    public class Edge{
         private Vertex start;
 	    private Vertex end;
 	    private Path path;
@@ -151,6 +147,14 @@ public class MazeGraph {
 		    this.end = endV;
 		    this.path = edgePath;
 	    }
+
+        public Vertex getEndVertex(){
+            return end;
+        }
+
+        public Path getPath(){
+            return path;
+        }
 
     }
 }

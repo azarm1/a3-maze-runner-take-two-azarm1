@@ -29,6 +29,10 @@ public class Path {
         }
     }
 
+    public Path(Path newPath) {
+        this.path.addAll(newPath.getPathSteps());
+    }
+
     /**
      * Expand a factorized string path into a canonical one.
      *
@@ -74,6 +78,8 @@ public class Path {
     public void addStep(Character step) {
         path.add(step);
     }
+
+    
 
     /**
      * Generates the canonical form of the maze path.
@@ -126,4 +132,13 @@ public class Path {
 
         return sb.toString();
     }
+
+    public Path addMove(Path move){
+        this.path.addAll(move.getPathSteps());
+        return this;
+
+    }
+
+
+
 }

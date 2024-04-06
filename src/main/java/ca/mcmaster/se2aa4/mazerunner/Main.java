@@ -18,7 +18,7 @@ public class Main {
 
             Maze maze = new Maze(filePath);
             MazeGraph mazeGraph = new MazeGraph(maze);
-            mazeGraph.printGraph();
+            //mazeGraph.printGraph();
 
             if (cmd.getOptionValue("p") != null) {
                 logger.info("Validating path");
