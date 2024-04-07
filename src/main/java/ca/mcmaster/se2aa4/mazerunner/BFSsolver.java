@@ -8,11 +8,10 @@ import java.util.Queue;
 import java.util.Set;
 
 
-public class BFSsolver implements MazeSolver{
+public class BFSsolver implements GraphMazeSolver{
 
     @Override
-    public Path solve(Maze maze) {
-        MazeGraph mazeGraph = new MazeGraph(maze);
+    public Path solve(MazeGraph maze) {
         long startTime = System.currentTimeMillis();
 
         Queue<MazeGraph.Vertex> queue = new LinkedList<>();
@@ -20,8 +19,8 @@ public class BFSsolver implements MazeSolver{
         Set<MazeGraph.Vertex> visited = new HashSet<>();
 
 
-        MazeGraph.Vertex startVertex = mazeGraph.getStartVertex();
-        MazeGraph.Vertex endVertex = mazeGraph.getEndVertex();
+        MazeGraph.Vertex startVertex = maze.getStartVertex();
+        MazeGraph.Vertex endVertex = maze.getEndVertex();
 
         queue.add(startVertex);
         visited.add(startVertex); 
@@ -40,9 +39,9 @@ public class BFSsolver implements MazeSolver{
                 MazeGraph.Vertex neighbor = edge.getEndVertex();
                 if (!visited.contains(neighbor)) {
                     visited.add(neighbor);
-                    Path currPath = paths.get(currentVert);
-                    Path newPath = new Path(currPath.addMove(edge.getPath()));
-                    paths.put(neighbor, newPath);
+                    Path currPath = new Path(paths.get(currentVert));
+                    currPath.addMove(edge.getPath());
+                    paths.put(neighbor, currPath);
 
                     queue.add(neighbor);
                 }

@@ -17,8 +17,6 @@ public class Main {
             String filePath = cmd.getOptionValue('i');
 
             Maze maze = new Maze(filePath);
-            MazeGraph mazeGraph = new MazeGraph(maze);
-            //mazeGraph.printGraph();
 
             if (cmd.getOptionValue("p") != null) {
                 logger.info("Validating path");
@@ -83,7 +81,7 @@ public class Main {
             }
             case "BFS" -> {
                 logger.debug("BFS algorithm chosen.");
-                solver = new BFSsolver();
+                solver = new MazeGraphSolverAdapter(new BFSsolver());
             }
             default -> {
                 throw new Exception("Maze solving method '" + method + "' not supported.");
