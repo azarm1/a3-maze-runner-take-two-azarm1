@@ -12,6 +12,7 @@ public class BFSsolver implements GraphMazeSolver{
 
     @Override
     public Path solve(MazeGraph maze) {
+        
         long startTime = System.currentTimeMillis();
 
         Queue<MazeGraph.Vertex> queue = new LinkedList<>();

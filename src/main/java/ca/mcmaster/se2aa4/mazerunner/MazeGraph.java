@@ -25,6 +25,10 @@ public class MazeGraph {
         return endVertex;
     }
 
+    public ArrayList<Vertex> getVertices() {
+        return new ArrayList<>(vertices);
+    }
+
     private Vertex addVertex(Position inputPosition, Direction inputDirection){
         Vertex newVertex = new Vertex(inputPosition, inputDirection);
         this.vertices.add(newVertex);
