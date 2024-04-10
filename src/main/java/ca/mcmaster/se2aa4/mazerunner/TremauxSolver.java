@@ -14,15 +14,12 @@ public class TremauxSolver implements MazeSolver {
 
     @Override
     public Path solve(Maze maze) {
-        long startTime = System.currentTimeMillis();
         this.maze = maze;
         marks = new int[maze.getSizeY()][maze.getSizeX()];
         logger.debug("Marking entrances...");
         markEntrances();
         logger.debug("Tracing path...");
         
-        long endTime = System.currentTimeMillis();
-        System.out.println(endTime - startTime);
         return tracePath();
     }
 

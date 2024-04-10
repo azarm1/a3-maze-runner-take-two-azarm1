@@ -55,7 +55,7 @@ public class Main {
 
                     double speedup = (double) baselineTime/ methodTime;
                     
-                    System.out.println("Speedup: " + speedup);
+                    System.out.printf("Speedup: %.2f%n", speedup);
                 }
             }
         } catch (Exception e) {

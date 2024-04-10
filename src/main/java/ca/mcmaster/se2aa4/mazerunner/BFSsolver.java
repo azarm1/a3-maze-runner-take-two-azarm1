@@ -12,8 +12,6 @@ public class BFSsolver implements GraphMazeSolver{
 
     @Override
     public Path solve(MazeGraph maze) {
-        
-        long startTime = System.currentTimeMillis();
 
         Queue<MazeGraph.Vertex> queue = new LinkedList<>();
         Map<MazeGraph.Vertex, Path> paths = new HashMap<>();
@@ -31,8 +29,7 @@ public class BFSsolver implements GraphMazeSolver{
             MazeGraph.Vertex currentVert = queue.remove();
 
             if (currentVert.equals(endVertex)) {
-                long endTime = System.currentTimeMillis();
-                System.out.println(endTime - startTime);
+
                 return paths.get(currentVert);
             }
 
