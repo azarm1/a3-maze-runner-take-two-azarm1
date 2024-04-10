@@ -3,7 +3,7 @@ package ca.mcmaster.se2aa4.mazerunner;
 public class MazeSolverFactory {
     
     public static MazeSolver createSolver(String method) throws Exception {
-        switch (method.toLowerCase()) {
+        switch (method) {
             case "BFS":
                 return new MazeGraphSolverAdapter(new BFSsolver());
             case "righthand":

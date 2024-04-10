@@ -16,7 +16,12 @@ public class Main {
             cmd = parser.parse(getParserOptions(), args);
             String filePath = cmd.getOptionValue('i');
 
+
+            long mazeLoadStart = System.currentTimeMillis();
             Maze maze = new Maze(filePath);
+            long mazeLoadEnd = System.currentTimeMillis();
+
+            System.out.println("Time spent loading maze: " + (mazeLoadEnd-mazeLoadStart));
 
             if (cmd.getOptionValue("p") != null) {
                 logger.info("Validating path");
@@ -34,6 +39,7 @@ public class Main {
                 long methodEnd = System.currentTimeMillis();
 
                 long methodTime = methodEnd - methodStart;
+                System.out.println("Time spent exploring maze with method: " + methodTime);
 
                 System.out.println(path.getFactorizedForm());
 
@@ -41,10 +47,11 @@ public class Main {
                     // Compute the baseline solution path
                     String baseline = cmd.getOptionValue("baseline");
                     long baselineStart = System.currentTimeMillis();
-                    Path baselinePath = solveMaze(baseline, maze);
+                    solveMaze(baseline, maze);
                     long baselineEnd = System.currentTimeMillis();
 
                     long baselineTime = baselineEnd - baselineStart;
+                    System.out.println("Time spent exploring maze with baseline: " + baselineTime);
 
                     double speedup = (double) baselineTime/ methodTime;
                     
@@ -69,24 +76,7 @@ public class Main {
      * @throws Exception If provided method does not exist
      */
     private static Path solveMaze(String method, Maze maze) throws Exception {
-        MazeSolver solver = null;
-        switch (method) {
-            case "righthand" -> {
-                logger.debug("RightHand algorithm chosen.");
-                solver = new RightHandSolver();
-            }
-            case "tremaux" -> {
-                logger.debug("Tremaux algorithm chosen.");
-                solver = new TremauxSolver();
-            }
-            case "BFS" -> {
-                logger.debug("BFS algorithm chosen.");
-                solver = new MazeGraphSolverAdapter(new BFSsolver());
-            }
-            default -> {
-                throw new Exception("Maze solving method '" + method + "' not supported.");
-            }
-        }
+        MazeSolver solver = MazeSolverFactory.createSolver(method);
 
         logger.info("Computing path");
         return solver.solve(maze);
