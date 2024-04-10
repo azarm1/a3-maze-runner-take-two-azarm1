@@ -1,5 +1,3 @@
-HEAD
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/IPHBGZ6v)
 # Assignment A1 - Maze Runner
 
 * **Student**: [MAYA AZAR](azarm@mcmaster.ca)
@@ -7,6 +5,12 @@ HEAD
 * **Course code**: SFWRENG 2AA4
 * **Course Title**: Software Design I - Introduction to Software Development
 * Term: *Level II - Winter 2024*
+
+## Acknowledgments
+
+This project builds upon the foundational maze-solving software originally developed by Alexandre Lachance. 
+Enhancements including the integration of maze graph representations, the BFS method for pathfinding, and performance measurement 
+features were developed by Maya Azar.
 
 ## Business Logic Specification
 
@@ -76,16 +80,17 @@ PATH NOT COMPUTED
 
 ### Delivered version
 
+The enhanced Maze Runner includes additional functionalities and command-line arguments to cater to advanced maze-solving scenarios, including performance comparisons and support for multiple pathfinding algorithms.
+
 #### Command line arguments
 
-The delivered program at the end of this assignment should use the following flags:
+The delivered program uses the following flags:
 
 - `-i MAZE_FILE`: specifies the filename to be used;
 - `-p PATH_SEQUENCE`: activates the path verification mode to validate that PATH_SEQUENCE is correct for the maze
+- `-method {tremaux, righthand, bfs} `: Selects the pathfinding algorithm to use. Default is bfs.
+- `-baseline {method_name}` : Compares the selected method's performance against a baseline method.
 
-If you are also delivering the bonus, your program will react to a third flag:
-
-- `-method {tremaux, righthand}`: specifies which path computation method to use. (default is right hand)
 
 #### Examples
 
@@ -111,6 +116,20 @@ If a given path is incorrect, the program prints the message `incorrect path` on
 mosser@azrael A1-Template % java -jar target/mazerunner.jar -i ./examples/straight.maz.txt -p 3F
 inccorrect path
 mosser@azrael A1-Template %
-```
 
-87c194d (Solution)
+Upon execution, the program dynamically chooses between traditional maze exploration and graph-based analysis based on the specified pathfinding method. It then performs pathfinding operations, outputting the path found and, if applicable, comparing its performance against a baseline method.
+
+Example using Trémaux's algorithm against BFS as the baseline:
+
+```shell
+mayaazar$ java -jar target/mazerunner.jar -i ./examples/giant.maz.txt -method "tremaux" -baseline "BFS"
+[INFO ] Main ** Starting Maze Runner
+Time spent loading maze: 6
+[INFO ] Main Computing path
+Time spent exploring maze with method: 69
+F L 2F R 2F L 6F R 2F L 6F R 2F R 2F L 2F R 2F L 2F R 8F L 4F R 4F L 6F R 2F L 4F R 2F L 2F R 4F L 4F R 2F L 18F R 4F L 4F R 2F L 2F R 2F L 4F R 4F L 2F R 2F L 2F L 2F R 4F L 2F R 4F L 2F R 10F L 6F R 2F L 2F R 6F L 2F R 2F R 4F L 2F R 2F L 14F R 4F L 4F R 2F L 2F R 8F L 10F R 2F L 4F R 2F L 6F R 2F L 4F R 2F L 6F L 2F R 2F L 4F R 5F
+[INFO ] Main Computing path
+Time spent exploring maze with baseline: 100
+Speedup: 1.45
+[INFO ] Main End of MazeRunner
+```
